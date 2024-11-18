@@ -2,11 +2,12 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.ksp)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.example.marvel_tab.feat.home"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -27,6 +28,12 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+    buildFeatures {
+        compose = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -52,7 +59,6 @@ dependencies {
     ksp(libs.androidx.hilt.complier)
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
-
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
