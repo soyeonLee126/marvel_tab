@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Marvel_Tab"
 include(":app")
- 
+include(":feat:home")
