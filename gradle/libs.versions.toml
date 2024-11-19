@@ -15,6 +15,9 @@ hilt = "2.52"
 hiltCompiler = "1.2.0"
 ksp = "2.0.21-1.0.28"
 jetbrainsKotlinJvm = "2.0.21"
+retrofit = "2.11.0"
+okhttp3LoggingInterceptor = "4.12.0"
+kotlinxSerializationJson = "1.6.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -45,6 +48,15 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 
 androidx-hilt-complier = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltCompiler" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltCompiler" }
+
+#retrofit
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-kotlinx-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
+retrofit-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3LoggingInterceptor" }
+
+#kotlin serialization
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
