@@ -1,11 +1,12 @@
-package com.example.marvel_tab.data.calladapter
+package com.example.marvel_tab.data.remote.adapter
 
 
 sealed interface ApiResult<out T> {
     data class Success<T>(val data: T) : ApiResult<T>
 
     sealed interface Failure : ApiResult<Nothing> {
-        data class HttpError(val code: Int? = -1, val message: String? = "unknown", val body: String? = "unknown") : Failure
+        data class HttpError(val code: Int? = -1, val message: String? = "unknown", val body: String? = "unknown") :
+            Failure
 
         data class NetworkError(val throwable: Throwable) : Failure
 

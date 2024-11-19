@@ -1,6 +1,7 @@
 package com.example.marvel_tab.data.remote.di
 
-import com.example.marvel_tab.data.calladapter.ResultCallAdapterFactory
+import com.example.marvel_tab.data.remote.DevelopmentInterceptor
+import com.example.marvel_tab.data.remote.adapter.ResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,6 +42,7 @@ class NetworkModule {
     @Marvel
     fun provideRetrofit(
         okhttpClientBuilder: OkHttpClient.Builder,
+        developmentInterceptor: DevelopmentInterceptor,
         json: Json,
     ): Retrofit {
         return Retrofit.Builder()
@@ -49,6 +51,7 @@ class NetworkModule {
                 okhttpClientBuilder
                     .build()
             )
+            .addInterceptor(developmentInterceptor)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .addCallAdapterFactory(ResultCallAdapterFactory())
             .build()
@@ -64,5 +67,4 @@ class NetworkModule {
             prettyPrint = true
         }
     }
-
 }

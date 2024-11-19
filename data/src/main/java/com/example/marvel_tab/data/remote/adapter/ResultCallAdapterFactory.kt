@@ -1,4 +1,4 @@
-package com.example.marvel_tab.data.calladapter
+package com.example.marvel_tab.data.remote.adapter
 
 import retrofit2.Call
 import retrofit2.CallAdapter

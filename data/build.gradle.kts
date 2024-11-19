@@ -76,6 +76,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.okhttp.mock)
+    // Hilt Android Testing
+    androidTestImplementation(libs.hilt.test)
+    kspAndroidTest(libs.hilt.android.compiler)
 
     implementation(project(":core:model"))
 }

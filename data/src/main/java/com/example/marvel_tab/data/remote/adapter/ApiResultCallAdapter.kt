@@ -1,4 +1,4 @@
-package com.example.marvel_tab.data.calladapter
+package com.example.marvel_tab.data.remote.adapter
 
 import okhttp3.Request
 import okio.Timeout
@@ -54,7 +54,9 @@ private class ApiResultCall<R>(
                 } ?: run {
                     return if (successType == Unit::class.java) {
                         @Suppress("UNCHECKED_CAST")
-                        ApiResult.successOf(Unit as R)
+                        (ApiResult.successOf(
+                            Unit as R
+                        ))
                     } else {
                         ApiResult.Failure.UnknownApiError(
                             IllegalStateException("Response body is null")
@@ -64,7 +66,9 @@ private class ApiResultCall<R>(
 
                 return if (successType == Unit::class.java) {
                     @Suppress("UNCHECKED_CAST")
-                    ApiResult.successOf(Unit as R)
+                    (ApiResult.successOf(
+                        Unit as R
+                    ))
                 } else {
                     ApiResult.Failure.UnknownApiError(
                         IllegalStateException(
