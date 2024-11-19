@@ -1,9 +1,12 @@
 package com.example.marvel_tab.feat.favorite
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.example.marvel_tab.core.ui.component.CharacterCard
 
 @Composable
 fun FavoriteScreen() {
-    Text(text = "Favorite")
+   CharacterCard(
+       "favorite test",
+       "description"
+   )
 }

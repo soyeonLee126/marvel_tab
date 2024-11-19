@@ -1,7 +1,9 @@
 package com.example.marvel_tab.main
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
@@ -35,24 +37,31 @@ fun MainScreen(
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             content = { innerPadding ->
-                PrimaryTabRow(modifier = modifier.padding(innerPadding), selectedTabIndex = state) {
-                    titles.forEachIndexed { index, title ->
-                        Tab(
-                            selected = state == index,
-                            onClick = { state = index },
-                            text = {
-                                Text(
-                                    text = title,
-                                    maxLines = 2,
-                                    overflow = TextOverflow.Ellipsis
+                LazyColumn {
+                    item {
+                        PrimaryTabRow(
+                            modifier = modifier.padding(innerPadding),
+                            selectedTabIndex = state
+                        ) {
+                            titles.forEachIndexed { index, title ->
+                                Tab(
+                                    selected = state == index,
+                                    onClick = { state = index },
+                                    text = {
+                                        Text(
+                                            text = title,
+                                            maxLines = 2,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    }
                                 )
                             }
-                        )
-                    }
-                    MainNavHost(navController = navController)
-                    when (state) {
-                        0 -> navController.navigate(HOME_ROUTE)
-                        1 -> navController.navigate(FAVORITE_ROUTE)
+                        }
+                        MainNavHost(navController = navController)
+                        when (state) {
+                            0 -> navController.navigate(HOME_ROUTE)
+                            1 -> navController.navigate(FAVORITE_ROUTE)
+                        }
                     }
                 }
             }

@@ -1,9 +1,9 @@
 package com.example.marvel_tab.feat.home
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.marvel_tab.core.ui.component.CharacterCard
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
@@ -20,7 +20,10 @@ fun HomeScreen(
 fun HomeScreen(
     state: HomeUiState
 ) {
-    Text(text = "Home")
+    CharacterCard(
+        "test",
+        "description"
+    )
 }
 
 @Preview

@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.orbit.core)
     implementation(libs.orbit.compose)
     implementation(libs.orbit.viewmodel)
+    implementation(project(":core:ui"))
 
     //hilt
     ksp(libs.hilt.compiler)
