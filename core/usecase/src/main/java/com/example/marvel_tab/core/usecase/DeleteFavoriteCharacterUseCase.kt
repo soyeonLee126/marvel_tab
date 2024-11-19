@@ -2,7 +2,7 @@ package com.example.marvel_tab.core.usecase
 
 import javax.inject.Inject
 
-class SaveFavoriteCharactersUseCase @Inject constructor() {
+class DeleteFavoriteCharacterUseCase @Inject constructor() {
     operator fun invoke() {
 
     }
