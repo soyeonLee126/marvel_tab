@@ -1,10 +1,12 @@
 package com.example.marvel_tab.data.remote.di
 
+import com.example.marvel_tab.data.BuildConfig
 import com.example.marvel_tab.data.remote.DevelopmentInterceptor
 import com.example.marvel_tab.data.remote.adapter.ResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -14,8 +16,8 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
-@InstallIn
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
     @Provides
     fun provideOkHttpClientBuilder(): OkHttpClient.Builder {
