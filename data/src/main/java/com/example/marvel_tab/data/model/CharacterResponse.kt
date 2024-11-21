@@ -3,6 +3,15 @@ package com.example.marvel_tab.data.model
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class CharacterListResponse(
+    val offset: Int,
+    val limit: Int,
+    val total: Int,
+    val count: Int,
+    val results: List<CharacterResponse>
+)
+
+@Serializable
 data class CharacterResponse(
     val id: Int,
     val name: String,

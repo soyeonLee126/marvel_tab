@@ -16,9 +16,12 @@ class CharacterRepositoryImpl @Inject constructor(
     override suspend fun getCharacters(name: String): Flow<List<Character>> = flow {
         emit(characterService.getCharacters(name = name).getOrThrow().toDomain())
     }
+
     override suspend fun saveCharacter(character: Character) = characterDao.saveCharacter(character)
-    override suspend fun deleteCharacter(character: Character) = characterDao.deleteCharacter(character.id)
+    override suspend fun deleteCharacter(character: Character) =
+        characterDao.deleteCharacter(character.id)
+
     override suspend fun getFavoriteCharacters(): Flow<List<Character>> = flow {
-        emit(characterDao.getFavoriteCharacters().)
+        emit(characterDao.getFavoriteCharacters().toDomain())
     }
 }
