@@ -1,5 +1,7 @@
 package com.example.marvel_tab.data.di
 
+import com.example.marvel_tab.data.local.CharacterDao
+import com.example.marvel_tab.data.repository.CharacterRepository
 import com.example.marvel_tab.data.repository.CharacterRepositoryImpl
 import dagger.Binds
 import dagger.Module

@@ -28,4 +28,11 @@ object CharacterMapper {
             )
         }
     }
+
+    fun Character.toEntity(): CharacterEntity = CharacterEntity(
+        id = this.id,
+        name = this.name,
+        description = this.description,
+        thumbnailUrl = this.thumbnail
+    )
 }

@@ -39,7 +39,7 @@ class NetworkModuleTest {
         val baseUrl = "https://gateway.marvel.com"
         every { BuildConfig.BASE_URL } returns baseUrl
 
-        val retrofit = networkModule.provideRetrofit(builder, mockInterceptor, json)
+        val retrofit = networkModule.provideRetrofit(builder,  mockInterceptor, json)
 
         assertEquals(baseUrl, retrofit.baseUrl().toString())
         assertEquals(OkHttpClient::class.java, retrofit.callFactory().javaClass)

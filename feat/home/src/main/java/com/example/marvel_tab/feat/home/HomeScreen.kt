@@ -1,6 +1,7 @@
 package com.example.marvel_tab.feat.home
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.marvel_tab.core.ui.component.CharacterCard
@@ -11,6 +12,11 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state = viewModel.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.getCharacters("test")
+    }
+
     HomeScreen(
         state = state.value
     )

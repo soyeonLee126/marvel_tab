@@ -11,6 +11,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Qualifier
@@ -44,20 +45,19 @@ class NetworkModule {
     @Marvel
     fun provideRetrofit(
         okhttpClientBuilder: OkHttpClient.Builder,
-        developmentInterceptor: DevelopmentInterceptor,
-        json: Json,
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(
-                okhttpClientBuilder
-                    .build()
-            )
-            .addInterceptor(developmentInterceptor)
-            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-            .addCallAdapterFactory(ResultCallAdapterFactory())
-            .build()
-    }
+        jsonConverterFactory: Converter.Factory,
+        developmentInterceptor: DevelopmentInterceptor
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_URL)
+        .client(
+            okhttpClientBuilder
+                .addInterceptor(developmentInterceptor)
+                .build()
+        )
+        .addCallAdapterFactory(ResultCallAdapterFactory())
+        .addConverterFactory(jsonConverterFactory)
+        .build()
+
 
     @Provides
     @Singleton
@@ -69,4 +69,10 @@ class NetworkModule {
             prettyPrint = true
         }
     }
+
+    @Provides
+    @Singleton
+    @Suppress("JSON_FORMAT_REDUNDANT")
+    fun provideJsonConverterFactory(): Converter.Factory =
+        Json { ignoreUnknownKeys = true }.asConverterFactory("application/json; charset=UTF8".toMediaType())
 }

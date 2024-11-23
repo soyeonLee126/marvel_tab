@@ -1,4 +1,4 @@
-package com.example.marvel_tab.core.repository
+package com.example.marvel_tab.data.repository
 
 import com.example.marvel_tab.core.model.Character
 import kotlinx.coroutines.flow.Flow

@@ -4,11 +4,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CharacterListResponse(
-    val offset: Int,
-    val limit: Int,
-    val total: Int,
-    val count: Int,
-    val results: List<CharacterResponse>
+    val offset: Int = 0,
+    val limit: Int = 0,
+    val total: Int = 0,
+    val count: Int = 0,
+    val results: List<CharacterResponse> = emptyList()
 )
 
 @Serializable
