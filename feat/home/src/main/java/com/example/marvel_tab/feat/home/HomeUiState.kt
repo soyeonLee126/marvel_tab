@@ -5,5 +5,6 @@ import com.example.marvel_tab.core.model.Character
 data class HomeUiState (
     val isLoading: Boolean = false,
     val isError: Boolean = false,
-    val characters: List<Character> = emptyList()
+    val characters: List<Character> = emptyList(),
+    val searchQuery: String = " "
 )

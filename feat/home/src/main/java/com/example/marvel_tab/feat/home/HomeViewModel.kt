@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
@@ -17,14 +18,14 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel(), ContainerHost<HomeUiState, Unit> {
     override val container: Container<HomeUiState, Unit> = container(HomeUiState())
 
-    fun getCharacters(query: String) = intent {
+    fun getCharacters() = intent {
         reduce {
             state.copy(
                 isLoading = true,
                 isError = false
             )
         }
-        getCharactersUseCase(query).collectLatest {
+        getCharactersUseCase(state.searchQuery).collectLatest {
             characters ->
             reduce {
                 state.copy(
@@ -34,5 +35,17 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun onQueryChanged(query: String) = blockingIntent {
+        reduce {
+            state.copy(
+                searchQuery = query
+            )
+        }
+    }
+
+    fun onSearch() = intent {
+        getCharacters()
     }
 }

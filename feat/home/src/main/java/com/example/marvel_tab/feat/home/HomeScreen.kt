@@ -2,9 +2,8 @@ package com.example.marvel_tab.feat.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.marvel_tab.core.ui.component.CharacterCard
+import com.example.marvel_tab.feat.home.component.MarvelSearchBar
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
@@ -14,31 +13,25 @@ fun HomeScreen(
     val state = viewModel.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.getCharacters("test")
+        viewModel.getCharacters()
     }
 
     HomeScreen(
-        state = state.value
+        state = state.value,
+        onQueryChanged = viewModel::onQueryChanged,
+        onSearch = viewModel::onSearch
     )
 }
 
 @Composable
 fun HomeScreen(
-    state: HomeUiState
+    state: HomeUiState,
+    onQueryChanged: (String) -> Unit,
+    onSearch:() -> Unit
 ) {
-    CharacterCard(
-        "test",
-        "description"
-    )
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen(
-        state = HomeUiState(
-            isLoading = false,
-            isError = false,
-        )
+    MarvelSearchBar(
+        query = state.searchQuery,
+        onQueryChanged = onQueryChanged,
+        onSearch = onSearch
     )
 }

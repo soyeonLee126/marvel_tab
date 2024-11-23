@@ -1,5 +1,6 @@
 package com.example.marvel_tab.main
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.marvel_tab.MainNavHost
@@ -37,31 +39,32 @@ fun MainScreen(
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             content = { innerPadding ->
-                LazyColumn {
-                    item {
-                        PrimaryTabRow(
-                            modifier = modifier.padding(innerPadding),
-                            selectedTabIndex = state
-                        ) {
-                            titles.forEachIndexed { index, title ->
-                                Tab(
-                                    selected = state == index,
-                                    onClick = { state = index },
-                                    text = {
-                                        Text(
-                                            text = title,
-                                            maxLines = 2,
-                                            overflow = TextOverflow.Ellipsis
-                                        )
-                                    }
-                                )
-                            }
+                Box {
+                    PrimaryTabRow(
+                        modifier = modifier.padding(innerPadding),
+                        selectedTabIndex = state
+                    ) {
+                        titles.forEachIndexed { index, title ->
+                            Tab(
+                                selected = state == index,
+                                onClick = { state = index },
+                                text = {
+                                    Text(
+                                        text = title,
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            )
                         }
-                        MainNavHost(navController = navController)
-                        when (state) {
-                            0 -> navController.navigate(HOME_ROUTE)
-                            1 -> navController.navigate(FAVORITE_ROUTE)
-                        }
+                    }
+                    MainNavHost(
+                        navController = navController,
+                        modifier = Modifier.padding(top = 40.dp)
+                    )
+                    when (state) {
+                        0 -> navController.navigate(HOME_ROUTE)
+                        1 -> navController.navigate(FAVORITE_ROUTE)
                     }
                 }
             }
