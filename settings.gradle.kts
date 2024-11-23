@@ -22,7 +22,9 @@ dependencyResolutionManagement {
 rootProject.name = "Marvel_Tab"
 include(":app")
 include(":feat:home")
-include(":core:util")
 include(":core:ui")
 include(":feat:favorite")
+include(":data")
+include(":core:model")
 include(":core:usecase")
+include(":core:util")
