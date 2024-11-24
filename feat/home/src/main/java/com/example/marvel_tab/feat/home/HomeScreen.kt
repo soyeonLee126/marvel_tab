@@ -45,9 +45,6 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     Box {
-        if (state.isLoading) CircularProgressIndicator(
-            modifier = modifier.align(Alignment.Center)
-        )
         MarvelSearchBar(
             query = state.searchQuery,
             onQueryChanged = onQueryChanged,
@@ -67,5 +64,8 @@ fun HomeScreen(
                 )
             }
         }
+        if (state.isLoading) CircularProgressIndicator(
+            modifier = modifier.align(Alignment.Center)
+        )
     }
 }

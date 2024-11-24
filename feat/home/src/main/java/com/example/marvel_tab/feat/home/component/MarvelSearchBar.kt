@@ -31,8 +31,6 @@ fun MarvelSearchBar(
     onQueryChanged: (String) -> Unit,
     onSearch: () -> Unit
 ) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-
     Box(
         Modifier
             .fillMaxSize()
@@ -44,21 +42,20 @@ fun MarvelSearchBar(
             inputField = {
                 InputField(
                     query = query,
+                    expanded = false,
                     onQueryChange = onQueryChanged,
                     onSearch = {
                         onSearch()
-                        expanded = false
                     },
-                    expanded = expanded,
-                    onExpandedChange = { expanded = it },
+                    onExpandedChange = {},
                     placeholder = { Text(stringResource(string.search_hint)) },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                     trailingIcon = { Icon(Icons.Default.MoreVert, contentDescription = null) },
                     modifier = Modifier.fillMaxWidth()
                 )
             },
-            expanded = expanded,
-            onExpandedChange = { expanded = it }
+            expanded = false,
+            onExpandedChange = { }
         ) {}
     }
 }

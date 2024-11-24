@@ -16,6 +16,6 @@ interface CharacterDao {
     @Query("DELETE FROM character WHERE id is :characterId")
     suspend fun deleteCharacter(characterId: Int)
 
-    @Query("SELECT * FROM character ORDER BY id DESC")
+    @Query("SELECT * FROM character")
     fun getFavoriteCharacters(): Flow<List<CharacterEntity>>
 }
