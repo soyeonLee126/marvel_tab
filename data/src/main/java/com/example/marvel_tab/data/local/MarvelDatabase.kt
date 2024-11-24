@@ -8,7 +8,7 @@ import com.example.marvel_tab.data.model.CharacterEntity
     entities = [
         CharacterEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 abstract class MarvelDatabase : RoomDatabase() {
