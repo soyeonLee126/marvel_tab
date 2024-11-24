@@ -65,7 +65,7 @@ class NetworkModule {
         return Json {
             isLenient = true
             ignoreUnknownKeys = true
-            encodeDefaults = true
+            encodeDefaults = false
             prettyPrint = true
         }
     }

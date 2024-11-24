@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.marvel_tab.data.model.CharacterEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
@@ -16,5 +17,5 @@ interface CharacterDao {
     suspend fun deleteCharacter(characterId: Int)
 
     @Query("SELECT * FROM character ORDER BY id DESC")
-    suspend fun getFavoriteCharacters(): List<CharacterEntity>
+    fun getFavoriteCharacters(): Flow<List<CharacterEntity>>
 }
