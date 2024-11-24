@@ -18,17 +18,28 @@ class CharacterRepositoryImpl @Inject constructor(
     private val characterService: CharacterService,
     private val characterDao: CharacterDao
 ) : CharacterRepository {
-    override suspend fun getCharacters(name: String): Flow<List<Character>> = flow {
+    private var offset = 0
+
+    override fun getCharacters(name: String): Flow<List<Character>> = flow {
         val ts = Timestamp(System.currentTimeMillis()).time.toString()
         val hash = md5("$ts${BuildConfig.PRIVATE_KEY}${BuildConfig.API_KEY}")
-        emit(characterService.getCharacters(name = name, hash = hash, ts = ts).getOrThrow().toDomain())
+        val query = name.ifEmpty { null }
+
+        emit(
+            characterService.getCharacters(name = query, hash = hash, ts = ts, offset = offset + 1)
+                .getOrThrow().data.also {
+                    offset = it.offset
+                }.toDomain()
+        )
     }
 
-    override suspend fun saveCharacter(character: Character) = characterDao.saveCharacter(character.toEntity())
+    override suspend fun saveCharacter(character: Character): Unit {
+        return characterDao.saveCharacter(character.toEntity())
+    }
+
     override suspend fun deleteCharacter(character: Character) =
         characterDao.deleteCharacter(character.id)
 
-    override suspend fun getFavoriteCharacters(): Flow<List<Character>> = flow {
-        emit(characterDao.getFavoriteCharacters().toDomain())
-    }
+    override fun getFavoriteCharacters(): Flow<List<Character>> =
+        characterDao.getFavoriteCharacters().toDomain()
 }

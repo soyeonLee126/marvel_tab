@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.orbit.compose)
     implementation(libs.orbit.viewmodel)
     implementation(project(":core:ui"))
+    implementation(project(":core:usecase"))
 
     //hilt
     ksp(libs.hilt.compiler)
@@ -67,4 +68,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(project(":core:model"))
 }

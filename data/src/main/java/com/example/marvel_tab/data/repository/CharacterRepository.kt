@@ -4,8 +4,8 @@ import com.example.marvel_tab.core.model.Character
 import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
-    suspend fun getCharacters(name: String): Flow<List<Character>>
-    suspend fun saveCharacter(character: Character)
+    fun getCharacters(name: String): Flow<List<Character>>
+    suspend fun saveCharacter(character: Character): Unit
     suspend fun deleteCharacter(character: Character)
-    suspend fun getFavoriteCharacters(): Flow<List<Character>>
+    fun getFavoriteCharacters(): Flow<List<Character>>
 }

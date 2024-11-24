@@ -1,11 +1,10 @@
-package com.example.marvel_tab.feat.home
+package com.example.marvel_tab.feat.favorite
 
 import com.example.marvel_tab.core.model.Character
 
-data class HomeUiState (
+data class FavoriteUiState(
     val isLoading: Boolean = false,
     val isError: Boolean = false,
-    val characters: List<Character> = emptyList(),
+    val errorMessage: String = "",
     val favoriteCharacters: List<Character> = emptyList(),
-    val searchQuery: String = ""
 )

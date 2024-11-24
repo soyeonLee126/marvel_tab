@@ -35,6 +35,7 @@ android {
 
 dependencies {
     implementation(project(":data"))
+    implementation(project(":core:model"))
     //hilt
     ksp(libs.hilt.compiler)
     ksp(libs.androidx.hilt.complier)
