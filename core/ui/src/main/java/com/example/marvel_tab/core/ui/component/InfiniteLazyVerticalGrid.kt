@@ -61,7 +61,7 @@ private fun LazyGridState.onLoadMore(limitCount: Int = 6, loadOnBottom: Boolean 
 }
 
 private fun LazyGridState.reachedBottom(
-    limitCount: Int = 4,
+    limitCount: Int = 2,
     triggerOnEnd: Boolean = false,
 ): Boolean {
     val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull()

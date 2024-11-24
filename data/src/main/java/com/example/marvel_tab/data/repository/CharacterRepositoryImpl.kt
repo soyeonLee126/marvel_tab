@@ -1,5 +1,6 @@
 package com.example.marvel_tab.data.repository
 
+import android.util.Log
 import com.example.marvel_tab.core.model.Character
 import com.example.marvel_tab.core.util.EncryptionManager.md5
 import com.example.marvel_tab.data.BuildConfig
@@ -18,19 +19,30 @@ class CharacterRepositoryImpl @Inject constructor(
     private val characterService: CharacterService,
     private val characterDao: CharacterDao
 ) : CharacterRepository {
-    private var offset = 0
+    private var internalOffset = 0
 
-    override fun getCharacters(name: String): Flow<List<Character>> = flow {
+    override fun getCharacters(name: String, offset: Int?): Flow<List<Character>> = flow {
         val ts = Timestamp(System.currentTimeMillis()).time.toString()
         val hash = md5("$ts${BuildConfig.PRIVATE_KEY}${BuildConfig.API_KEY}")
         val query = name.ifEmpty { null }
 
-        emit(
-            characterService.getCharacters(name = query, hash = hash, ts = ts, offset = offset + 1)
-                .getOrThrow().data.also {
-                    offset = it.offset
-                }.toDomain()
-        )
+        if (offset != null) internalOffset = offset
+
+        try {
+            emit(
+                characterService.getCharacters(
+                    name = query,
+                    hash = hash,
+                    ts = ts,
+                    offset = internalOffset + 1
+                )
+                    .getOrThrow().data.toDomain().also {
+                        internalOffset += it.size
+                    }
+            )
+        } catch (e: Exception) {
+            Log.e("CharacterRepository", "Error fetching characters", e)
+        }
     }
 
     override suspend fun saveCharacter(character: Character): Unit {

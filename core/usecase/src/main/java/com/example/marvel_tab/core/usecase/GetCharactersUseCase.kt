@@ -8,6 +8,6 @@ import com.example.marvel_tab.core.model.Character
 class GetCharactersUseCase @Inject constructor(
     private val repository: CharacterRepository
 ) {
-     operator fun invoke(query: String): Flow<List<Character>> =
-        repository.getCharacters(query)
+     operator fun invoke(query: String, offset: Int?): Flow<List<Character>> =
+        repository.getCharacters(query, offset)
 }

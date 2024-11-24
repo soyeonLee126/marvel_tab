@@ -43,11 +43,29 @@ class HomeViewModel @Inject constructor(
 
     fun getCharacters() = intent {
         setLoadingState(true)
-        getCharactersUseCase(state.searchQuery).collectLatest { characters ->
+        getCharactersUseCase(state.searchQuery, 0).collectLatest { characters ->
             setLoadingState(false)
-            val updatedCharacters = mapCharactersWithFavorites(characters, favoriteCharacters = state.favoriteCharacters)
+            val updatedCharacters = mapCharactersWithFavorites(
+                characters,
+                favoriteCharacters = state.favoriteCharacters
+            )
             reduce {
                 state.copy(characters = updatedCharacters)
+            }
+        }
+    }
+
+    fun loadMoreCharacters() = intent {
+        setLoadingState(true)
+        val oldCharacters = state.characters
+        getCharactersUseCase(state.searchQuery, null).collectLatest { characters ->
+            setLoadingState(false)
+            val updatedCharacters = mapCharactersWithFavorites(
+                characters,
+                favoriteCharacters = state.favoriteCharacters
+            )
+            reduce {
+                state.copy(characters = oldCharacters + updatedCharacters)
             }
         }
     }
@@ -80,7 +98,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun mapCharactersWithFavorites(characters: List<Character>, favoriteCharacters: List<Character>): List<Character> {
+    private fun mapCharactersWithFavorites(
+        characters: List<Character>,
+        favoriteCharacters: List<Character>
+    ): List<Character> {
         return characters.map { character ->
             character.copy(
                 isFavorite = favoriteCharacters.any { it.id == character.id }

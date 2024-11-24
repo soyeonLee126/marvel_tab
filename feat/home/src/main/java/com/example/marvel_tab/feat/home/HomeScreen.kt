@@ -31,6 +31,7 @@ fun HomeScreen(
     HomeScreen(
         state = state.value,
         onQueryChanged = viewModel::onQueryChanged,
+        loadMore = viewModel::loadMoreCharacters,
         onSearch = viewModel::onSearch,
         onCardClick = viewModel::onCardClick
     )
@@ -41,6 +42,7 @@ fun HomeScreen(
     state: HomeUiState,
     onCardClick: (Character) -> Unit,
     onQueryChanged: (String) -> Unit,
+    loadMore: () -> Unit,
     onSearch: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -51,7 +53,7 @@ fun HomeScreen(
             onSearch = onSearch
         )
         InfinityLazyVerticalGrid(
-            loadMore = onSearch,
+            loadMore = loadMore,
             modifier = modifier.padding(top = 90.dp),
         ) {
             items(state.characters.size) {
