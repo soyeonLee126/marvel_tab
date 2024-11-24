@@ -35,8 +35,13 @@ class HomeViewModel @Inject constructor(
 
     private fun loadFavoriteCharacters() = intent {
         getFavoriteCharacterUseCase().collectLatest { favoriteCharacters ->
+            setLoadingState(false)
             reduce {
-                state.copy(favoriteCharacters = favoriteCharacters)
+                val characters = mapCharactersWithFavorites(
+                    state.characters,
+                    favoriteCharacters = favoriteCharacters
+                )
+                state.copy(favoriteCharacters = favoriteCharacters, characters = characters)
             }
         }
     }
