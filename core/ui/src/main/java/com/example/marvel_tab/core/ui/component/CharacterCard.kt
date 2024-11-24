@@ -44,7 +44,6 @@ fun CharacterCard(
                 .padding(8.dp)
                 .clickable { onCLick() },
         ) {
-            Log.e("CharacterCard", "imageUrl: $imageUrl")
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(imageUrl)

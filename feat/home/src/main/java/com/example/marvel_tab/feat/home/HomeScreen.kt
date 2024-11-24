@@ -57,12 +57,13 @@ fun HomeScreen(
             modifier = modifier.padding(top = 90.dp),
         ) {
             items(state.characters.size) {
+                val character = state.characters[it]
                 CharacterCard(
-                    name = state.characters[it].name,
-                    description = state.characters[it].description,
-                    imageUrl = state.characters[it].thumbnail,
-                    onCLick = { onCardClick(state.characters[it]) },
-                    isFavorite = state.characters[it].isFavorite
+                    name = character.name,
+                    description = character.description,
+                    imageUrl = character.thumbnail,
+                    onCLick = { onCardClick(character) },
+                    isFavorite = character.isFavorite
                 )
             }
         }

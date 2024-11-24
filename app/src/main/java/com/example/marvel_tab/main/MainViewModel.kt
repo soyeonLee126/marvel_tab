@@ -7,5 +7,4 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class MainViewModel: ViewModel(), ContainerHost<MainUiState, Unit> {
     override val container : Container<MainUiState, Unit> = container(MainUiState())
-
 }
