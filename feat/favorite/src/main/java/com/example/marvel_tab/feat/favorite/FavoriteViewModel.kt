@@ -12,12 +12,13 @@ import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 import com.example.marvel_tab.core.model.Character
 import com.example.marvel_tab.core.usecase.DeleteFavoriteCharacterUseCase
-import com.example.marvel_tab.core.usecase.SaveFavoriteCharacterUseCase
+import com.example.marvel_tab.core.util.ResourceProvider
+import com.example.marvel_tab.core.ui.R.string
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor (
+    private val resourceProvider: ResourceProvider,
     private val getFavoriteCharacterUseCase: GetFavoriteCharacterUseCase,
-    private val saveFavoriteCharacterUseCase: SaveFavoriteCharacterUseCase,
     private val deleteFavoriteCharacterUseCase: DeleteFavoriteCharacterUseCase
 ): ViewModel(), ContainerHost<FavoriteUiState, Unit> {
     override val container : Container<FavoriteUiState, Unit> = container(FavoriteUiState())
@@ -31,7 +32,7 @@ class FavoriteViewModel @Inject constructor (
             if (it.isEmpty()) {
                 reduce {
                     state.copy(
-                        errorMessage = "No favorite characters found",
+                        errorMessage =  resourceProvider.getString(string.empty_favorite_list_message)
                     )
                 }
             }
