@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.marvel_tab.core.model.Character
 import com.example.marvel_tab.core.usecase.GetCharactersUseCase
 import com.example.marvel_tab.core.usecase.GetFavoriteCharacterUseCase
+import com.example.marvel_tab.core.usecase.GetMoreCharactersUseCase
 import com.example.marvel_tab.core.usecase.SaveFavoriteCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -22,6 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
+    private val getMoreCharactersUseCase: GetMoreCharactersUseCase,
     private val saveFavoriteCharacterUseCase: SaveFavoriteCharacterUseCase,
     private val getFavoriteCharacterUseCase: GetFavoriteCharacterUseCase,
 ) : ViewModel(), ContainerHost<HomeUiState, Unit> {
@@ -48,7 +50,7 @@ class HomeViewModel @Inject constructor(
 
     fun getCharacters() = intent {
         setLoadingState(true)
-        getCharactersUseCase(state.searchQuery, 0).collectLatest { characters ->
+        getCharactersUseCase(state.searchQuery).collectLatest { characters ->
             setLoadingState(false)
             val updatedCharacters = mapCharactersWithFavorites(
                 characters,
@@ -63,7 +65,7 @@ class HomeViewModel @Inject constructor(
     fun loadMoreCharacters() = intent {
         setLoadingState(true)
         val oldCharacters = state.characters
-        getCharactersUseCase(state.searchQuery, null).collectLatest { characters ->
+        getMoreCharactersUseCase().collectLatest { characters ->
             setLoadingState(false)
             val updatedCharacters = mapCharactersWithFavorites(
                 characters,

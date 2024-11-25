@@ -5,9 +5,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import com.example.marvel_tab.core.model.Character
 
-class GetCharactersUseCase @Inject constructor(
+class GetMoreCharactersUseCase @Inject constructor(
     private val repository: CharacterRepository
 ) {
-     operator fun invoke(query: String): Flow<List<Character>> =
-        repository.getCharacters(query)
+     operator fun invoke(): Flow<List<Character>> =
+        repository.getMoreCharacters()
 }
