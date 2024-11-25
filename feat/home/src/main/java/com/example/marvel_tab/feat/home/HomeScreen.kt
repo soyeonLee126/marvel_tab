@@ -31,6 +31,7 @@ fun HomeScreen(
     HomeScreen(
         state = state.value,
         onQueryChanged = viewModel::onQueryChanged,
+        loadMore = viewModel::loadMoreCharacters,
         onSearch = viewModel::onSearch,
         onCardClick = viewModel::onCardClick
     )
@@ -41,6 +42,7 @@ fun HomeScreen(
     state: HomeUiState,
     onCardClick: (Character) -> Unit,
     onQueryChanged: (String) -> Unit,
+    loadMore: () -> Unit,
     onSearch: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -51,16 +53,17 @@ fun HomeScreen(
             onSearch = onSearch
         )
         InfinityLazyVerticalGrid(
-            loadMore = onSearch,
+            loadMore = loadMore,
             modifier = modifier.padding(top = 90.dp),
         ) {
-            items(state.characters.size) {
+            items(state.characters.size, key = { state.characters[it].id }) {
+                val character = state.characters[it]
                 CharacterCard(
-                    name = state.characters[it].name,
-                    description = state.characters[it].description,
-                    imageUrl = state.characters[it].thumbnail,
-                    onCLick = { onCardClick(state.characters[it]) },
-                    isFavorite = state.characters[it].isFavorite
+                    name = character.name,
+                    description = character.description,
+                    imageUrl = character.thumbnail,
+                    onCLick = { onCardClick(character) },
+                    isFavorite = character.isFavorite
                 )
             }
         }

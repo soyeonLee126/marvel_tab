@@ -14,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -33,6 +34,9 @@ class NetworkModule {
         okhttpClientBuilder: OkHttpClient.Builder,
     ): OkHttpClient {
         return okhttpClientBuilder
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 

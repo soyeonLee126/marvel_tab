@@ -5,7 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterRepository {
     fun getCharacters(name: String): Flow<List<Character>>
-    suspend fun saveCharacter(character: Character): Unit
+    fun getMoreCharacters(): Flow<List<Character>>
+    suspend fun saveCharacter(character: Character)
     suspend fun deleteCharacter(character: Character)
     fun getFavoriteCharacters(): Flow<List<Character>>
 }

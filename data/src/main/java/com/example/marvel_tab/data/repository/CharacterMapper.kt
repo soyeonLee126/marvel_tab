@@ -23,7 +23,7 @@ object CharacterMapper {
         return this.map { list ->
             list.map {
                 Character(
-                    id = it.id,
+                    id = it.characterId,
                     name = it.name ?: "",
                     description = it.description ?: "",
                     thumbnail = it.thumbnailUrl ?: "",
@@ -34,7 +34,7 @@ object CharacterMapper {
     }
 
     fun Character.toEntity(): CharacterEntity = CharacterEntity(
-        id = this.id,
+        characterId = this.id,
         name = this.name,
         description = this.description,
         thumbnailUrl = this.thumbnail

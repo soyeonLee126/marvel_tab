@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,6 +25,7 @@ import com.example.marvel_tab.MainNavHost
 import com.example.marvel_tab.feat.favorite.FAVORITE_ROUTE
 import com.example.marvel_tab.feat.home.HOME_ROUTE
 import com.example.marvel_tab.ui.theme.Marvel_TabTheme
+import com.example.marvel_tab.core.ui.R.string
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,7 +35,8 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     var state by remember { mutableIntStateOf(0) }
-    val titles = listOf("검색하기", "즐겨찾기")
+    val titles =
+        listOf(stringResource(string.home_page_title), stringResource(string.favorite_page_title))
 
     Marvel_TabTheme {
         Scaffold(
