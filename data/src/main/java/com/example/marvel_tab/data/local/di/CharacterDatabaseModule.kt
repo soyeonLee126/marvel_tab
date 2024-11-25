@@ -22,17 +22,15 @@ object CharacterDatabaseModule {
     private val DATABASE_CALLBACK = object : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-            db.execSQL("""
-            CREATE TRIGGER IF NOT EXISTS limit_log_table_trigger
-            AFTER INSERT ON character
-            WHEN (SELECT COUNT(*) FROM character) > $MAX_LIMIT
-            BEGIN
-                DELETE FROM character 
-                WHERE id IN (
-                    SELECT id FROM character 
-                    ORDER BY id ASC LIMIT (SELECT COUNT(*) - $MAX_LIMIT FROM character)
-                );
-            END;
+            db.execSQL(
+                """
+                CREATE TRIGGER IF NOT EXISTS delete_smallest_id_after_insert
+                AFTER INSERT ON character
+                WHEN (SELECT COUNT(*) FROM character) > $MAX_LIMIT
+                BEGIN
+                    DELETE FROM character
+                    WHERE id = (SELECT MIN(id) FROM character);
+                END;
         """.trimIndent())
         }
     }

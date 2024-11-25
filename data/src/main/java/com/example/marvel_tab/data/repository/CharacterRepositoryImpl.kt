@@ -28,21 +28,21 @@ class CharacterRepositoryImpl @Inject constructor(
 
         if (offset != null) internalOffset = offset
 
-        try {
-            emit(
-                characterService.getCharacters(
-                    name = query,
-                    hash = hash,
-                    ts = ts,
-                    offset = internalOffset + 1
-                )
-                    .getOrThrow().data.toDomain().also {
-                        internalOffset += it.size
-                    }
-            )
-        } catch (e: Exception) {
-            Log.e("CharacterRepository", "Error fetching characters", e)
-        }
+       try {
+           emit(
+               characterService.getCharacters(
+                   name = query,
+                   hash = hash,
+                   ts = ts,
+                   offset = internalOffset + 1
+               )
+                   .getOrThrow().data.toDomain().also {
+                       internalOffset += it.size
+                   }
+           )
+       } catch (e: Exception) {
+           Log.e("CharacterRepository", "Error fetching characters", e)
+       }
     }
 
     override suspend fun saveCharacter(character: Character): Unit {

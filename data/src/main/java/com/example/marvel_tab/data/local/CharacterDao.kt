@@ -13,9 +13,9 @@ interface CharacterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCharacter(character: CharacterEntity)
 
-    @Query("DELETE FROM character WHERE id is :characterId")
+    @Query("DELETE FROM character WHERE character_id is :characterId")
     suspend fun deleteCharacter(characterId: Int)
 
-    @Query("SELECT * FROM character")
+    @Query("SELECT * FROM character ORDER BY id ASC")
     fun getFavoriteCharacters(): Flow<List<CharacterEntity>>
 }
