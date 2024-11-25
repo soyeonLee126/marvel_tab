@@ -56,7 +56,7 @@ fun HomeScreen(
             loadMore = loadMore,
             modifier = modifier.padding(top = 90.dp),
         ) {
-            items(state.characters.size) {
+            items(state.characters.size, key = { state.characters[it].id }) {
                 val character = state.characters[it]
                 CharacterCard(
                     name = character.name,

@@ -45,7 +45,7 @@ fun FavoriteScreen(
         InfinityLazyVerticalGrid(
             modifier = modifier.padding(top = 20.dp),
             content = {
-                items(state.favoriteCharacters.size, key = { it }) {
+                items(state.favoriteCharacters.size, key = { state.favoriteCharacters[it].id }) {
                     CharacterCard(
                         name = state.favoriteCharacters[it].name,
                         description = state.favoriteCharacters[it].description,
